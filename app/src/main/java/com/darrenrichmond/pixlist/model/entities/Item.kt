@@ -1,8 +1,10 @@
 package com.darrenrichmond.pixlist.model.entities
 
-data class Item(
-    val itemName: String,
-    val itemDescription: String,
-    val itemPic: Int
+import java.time.LocalDate
 
+data class Item (
+    var itemName: String,
+    var itemDescription: String,
+    var itemPic: String,
+    var itemCreatedDate: LocalDate = LocalDate.now()
 )

@@ -47,10 +47,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ItemCard(item: Item) {
-    var dog: Int = R.drawable.bailey
-    if (item.itemPic == 2) {
+    var dog = 0
+    if (item.itemPic == "bucket") {
         dog = R.drawable.bucket
+    } else {
+        dog = R.drawable.bailey
     }
+    println("${item.itemName}: created ${item.itemCreatedDate}")
     println("dog: $dog")
 
     Row(

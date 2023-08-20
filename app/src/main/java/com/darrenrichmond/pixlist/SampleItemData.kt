@@ -6,13 +6,13 @@ object SampleItemData {
     val itemsSample = listOf(
         Item(
             "Fluffy Critter",
-            "That critter is pretty fulffy. Oh my goodness, I could just die.",
-            1
+            "That critter is pretty fluffy. Oh my goodness, I could just die.",
+            "bailey"
         ),
         Item(
             "Sad Clown",
             "Boo hoo.",
-            2
+            "bucket"
         )
     )
 }
