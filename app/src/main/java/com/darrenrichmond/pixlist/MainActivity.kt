@@ -2,8 +2,10 @@ package com.darrenrichmond.pixlist
 
 import androidx.compose.foundation.Image
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.border
@@ -11,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,17 +34,78 @@ import com.darrenrichmond.pixlist.ui.theme.PixListTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import androidx.room.Room
+import com.darrenrichmond.pixlist.db.ItemDatabase
+import com.darrenrichmond.pixlist.viewmodel.ItemViewModel
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<ItemViewModel>()
+    private var ebayItems: List<Item> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            PixListTheme {
-                ItemsList(SampleItemData.itemsSample)
+        //create the item DB where I store all the Items created.
+        val db = Room.databaseBuilder(
+            applicationContext,
+            ItemDatabase::class.java,
+            "items.db"
+        ).build()
+
+        lifecycleScope.launch {
+            ebayItems = db.dao.getItems()
+            ebayItems.forEach(::println)
+        }
+
+        /*
+        (1..4).forEach {
+            //had to add the launch wrapper due to insertItem is a suspend function
+            //https://stackoverflow.com/questions/53928668/suspend-function-callgetapi-should-be-called-only-from-a-coroutine-or-another
+            viewModel.viewModelScope.launch {
+                db.dao.insertItem(
+                    Item(
+                        itemName = "ebayItem_$it",
+                        itemDescription = "this is a really really really really really long description.",
+                        itemPic = "bailey"
+                    )
+                )
             }
         }
+
+         */
+
+        setContent {
+            PixListTheme {
+
+                Surface (
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {}
+                Column {
+                    //this is what I had with just sample data
+                    ItemsList(SampleItemData.itemsSample)
+                    //trying to get the list from the DB
+                   // ItemsList(ebayItems)
+
+                    Button(onClick = {
+                        viewModel.newItem("name",
+                            "description",
+                            "bucket")
+                    }) {
+                        Text("New Item")
+                    }
+                }
+            }
+
+
+        }
+
+
     }
 }
 

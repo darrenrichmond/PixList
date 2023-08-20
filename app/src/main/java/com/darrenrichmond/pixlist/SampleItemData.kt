@@ -5,14 +5,16 @@ import com.darrenrichmond.pixlist.model.entities.Item
 object SampleItemData {
     val itemsSample = listOf(
         Item(
-            "Fluffy Critter",
-            "That critter is pretty fluffy. Oh my goodness, I could just die.",
-            "bailey"
+            itemName = "Fluffy Critter",
+            itemDescription = "That critter is pretty fluffy. Oh my goodness, I could just die.",
+            itemPic ="bailey",
+            topFolderName = "folder_1"
         ),
         Item(
-            "Sad Clown",
-            "Boo hoo.",
-            "bucket"
+            itemName = "Sad Clown",
+            itemDescription = "Boo hoo.",
+            itemPic = "bucket",
+            topFolderName = "folder_2"
         )
     )
 }

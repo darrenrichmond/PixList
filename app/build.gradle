@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    //added to support Room local db support
+    id 'kotlin-kapt'
 }
 
 android {
@@ -18,6 +20,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        //PL told me to add this to support Room migration
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
         }
     }
 
@@ -65,4 +74,12 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    //added to support Room local db support
+    implementation "androidx.room:room-runtime:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
+    androidTestImplementation "androidx.room:room-testing:2.5.2"
+
+    androidTestImplementation "com.google.truth:1.1.5"
 }
