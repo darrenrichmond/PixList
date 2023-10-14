@@ -81,5 +81,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.2"
     androidTestImplementation "androidx.room:room-testing:2.5.2"
 
-    androidTestImplementation "com.google.truth:1.1.5"
+
 }

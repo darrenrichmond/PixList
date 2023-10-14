@@ -1,9 +1,12 @@
 package com.darrenrichmond.pixlist
 
+import android.content.pm.PackageManager
 import androidx.compose.foundation.Image
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -37,6 +40,8 @@ import androidx.compose.material3.Button
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -66,6 +71,7 @@ class MainActivity : ComponentActivity() {
             }
         }
             )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,7 +81,9 @@ class MainActivity : ComponentActivity() {
                 ItemScreen(state = state, onEvent = viewModel::onEvent)
             }
         }
+
     }
+
 }
 
 

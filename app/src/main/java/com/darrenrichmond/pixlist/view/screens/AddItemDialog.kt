@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.darrenrichmond.pixlist.events.ItemEvent
 import com.darrenrichmond.pixlist.state.ItemState
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddItemDialog(
@@ -24,6 +25,7 @@ fun AddItemDialog(
     onEvent: (ItemEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     AlertDialog(
         modifier = modifier,
         onDismissRequest = {
